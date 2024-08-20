@@ -234,8 +234,8 @@ class Program
                             $"\n    delete <id> - delete todo with the specified ID\n" +
                             $"\n    list - list all todos" +
                             $"\n    list <done | todo | in-progress> - list todos with the specified status\n" +
-                            $"\n    mark-in-progress <id> - mark todo with the specified ID as 'in progress'" +
-                            $"\n    mark-done <id> - mark todo with the specified ID as 'done'";
+                            $"\n    mark in-progress <id> - mark todo with the specified ID as 'in progress'" +
+                            $"\n    mark done <id> - mark todo with the specified ID as 'done'";
         Console.WriteLine(usageString);
     }
 }
