@@ -1,6 +1,7 @@
 # Sample solution for [Roadmap](https://roadmap.sh/projects/task-tracker)
 
 ## Features
+
 - Store and manage tasks in JSON format
 - View all tasks in a tabular format
 
@@ -12,29 +13,35 @@
 $ git clone git@github.com:NoSpawnn/TaskTrackerCLI.git
 ```
 
-2. Run
-
-- You can either run using the `dotnet` CLI or build the project and run the executable
+2. Build
 
 ```shell
-# Dotnet CLI
-$ dotnet run
-
-# Build then run
+# Build an executable and place it in the current directory
 $ dotnet publish TaskTrackerCLI.csproj -o .
-$ ./TaskTrackerCLI
 ```
 
-3. Arguments
-- This message can be seen at the CLI by passing no/invalid arguments
-```
-add <description> - add a todo with the specified description
-update <id> <description> - update todo with the specified ID
-delete <id> - delete todo with the specified ID
+3. Run
 
-list - list all todos
-list <done | todo | in-progress> - list todos with the specified status
+- The below commands can instead be prefixed with `dotnet run` if you prefer not the build the project
 
-mark-in-progress <id> - mark todo with the specified ID as 'in progress'
-mark-done <id> - mark todo with the specified ID as 'done'
+```shell
+# Add a task
+$ ./TaskTrackerCLI add "Buy food"
+
+# Update
+$ ./TaskTrackerCLI update 1 "Buy water"
+
+# Delete
+$ ./TaskTrackerCLI delete 1
+
+# Set status
+$ ./TaskTrackerCLI mark 1 todo
+$ ./TaskTrackerCLI mark 1 done
+$ ./TaskTrackerCLI mark 1 in-progress
+
+# List tasks
+$ ./TaskTrackerCLI list
+$ ./TaskTrackerCLI list done
+$ ./TaskTrackerCLI list in-progress
+$ ./TaskTrackerCLI list todo
 ```
