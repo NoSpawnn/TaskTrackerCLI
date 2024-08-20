@@ -1,47 +1,14 @@
 ﻿using System.Text;
 using System.Text.Json;
 
-class TaskTrackerCLI
+namespace TaskTrackerCLI;
+
+class Program
 {
-    private class Todo(int id, string description, DateTime createdAt, DateTime updatedAt, TodoStatus status)
-    {
-        public int Id { get; } = id; // IDs start at 1
-        private string _description = description;
-        public string Description
-        {
-            get { return _description; }
-            set
-            {
-                _description = value;
-                UpdatedAt = DateTime.Now;
-            }
-        }
-        private TodoStatus _status = status;
-        public TodoStatus Status
-        {
-            get { return _status; }
-            set
-            {
-                _status = value;
-                UpdatedAt = DateTime.Now;
-            }
-        }
-        public DateTime CreatedAt { get; } = createdAt;
-        public DateTime UpdatedAt { get; set; } = updatedAt;
-    }
-
-    private enum TodoStatus
-    {
-        TODO,
-        IN_PROGRESS,
-        DONE
-    }
-
     private static List<Todo> _todos = [];
     private static readonly JsonSerializerOptions _jsonOpts = new() { WriteIndented = true };
     private const string JsonFileName = "tasklist.json";
     private static int _nextId;
-
 
     public static void Main(String[] args)
     {
@@ -153,7 +120,7 @@ class TaskTrackerCLI
 
     private static void AddTask(string description)
     {
-        _todos.Add(new(_todos.Count + 1, description, DateTime.Now, DateTime.Now, TodoStatus.TODO));
+        _todos.Add(new(_nextId, description, DateTime.Now, DateTime.Now, TodoStatus.TODO));
         _nextId++;
         SaveTasks();
     }
