@@ -2,7 +2,7 @@ namespace TaskTrackerCLI;
 
 public class Todo(int id, string description, DateTime createdAt, DateTime updatedAt, TodoStatus status)
 {
-    public int Id { get; } = id; // IDs start at 1
+    public int Id { get; } = id;
     private string _description = description;
     public string Description
     {

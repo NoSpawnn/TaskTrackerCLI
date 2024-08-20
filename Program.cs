@@ -12,11 +12,11 @@ class Program
 
     public static void Main(String[] args)
     {
-        if (args.Length < 1)
-        {
-            PrintUsage();
-            return;
-        }
+        // if (args.Length < 1)
+        // {
+        //     PrintUsage();
+        //     return;
+        // }
 
         LoadTasks();
 
@@ -110,7 +110,6 @@ class Program
                         Console.WriteLine("Tasks may be marked as 'done' or 'in-progress'");
                         break;
                 }
-
                 break;
             default:
                 PrintUsage();
@@ -152,6 +151,16 @@ class Program
 
         _todos[toMark].Status = status;
 
+        SaveTasks();
+    }
+
+    private static void DeleteTask(int id)
+    {
+        var toDelete = _todos.FindIndex(t => t.Id == id);
+
+        if (toDelete == -1) return;
+
+        _todos.RemoveAt(toDelete);
         SaveTasks();
     }
 
@@ -200,16 +209,6 @@ class Program
         Console.WriteLine(tasksString);
     }
 
-    private static void DeleteTask(int id)
-    {
-        var toDelete = _todos.FindIndex(t => t.Id == id);
-
-        if (toDelete == -1) return;
-
-        _todos.RemoveAt(toDelete);
-        SaveTasks();
-    }
-
     private static void SaveTasks()
     {
         // { WriteIndented = true }
@@ -227,10 +226,9 @@ class Program
         var tasksJson = File.ReadAllText(JsonFileName);
 
         if (!string.IsNullOrEmpty(tasksJson))
-        {
             _todos = JsonSerializer.Deserialize<List<Todo>>(tasksJson)!;
-            _nextId = _todos.Count;
-        }
+
+        _nextId = _todos.Count == 0 ? 1 : _todos.MaxBy(t => t.Id)!.Id + 1;
     }
 
     private static void PrintUsage()
