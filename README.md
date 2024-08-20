@@ -1,4 +1,8 @@
-# Sample solution for https://roadmap.sh/projects/task-tracker
+# Sample solution for [Roadmap](https://roadmap.sh/projects/task-tracker)
+
+## Features
+- Store and manage tasks in JSON format
+- View all tasks in a tabular format
 
 ## Usage
 
