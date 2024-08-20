@@ -12,11 +12,11 @@ class Program
 
     public static void Main(String[] args)
     {
-        // if (args.Length < 1)
-        // {
-        //     PrintUsage();
-        //     return;
-        // }
+        if (args.Length < 1)
+        {
+            PrintUsage();
+            return;
+        }
 
         LoadTasks();
 
@@ -186,13 +186,11 @@ class Program
 
         var sb = new StringBuilder();
         foreach (var t in tasks)
-        {
             sb.Append($"{t.Id.ToString().PadRight(Math.Max(idColumnWidth, 5))}" +
                         $"{t.Description.PadRight(Math.Max(descColumnWidth, 14))}" +
                         $"{t.Status.ToString().PadRight(statusColumnWidth)}" +
                         $"{t.CreatedAt.ToString(dateFormat).PadRight(dateColumnWidth + 4)}" +
                         $"{t.UpdatedAt.ToString(dateFormat).PadRight(dateColumnWidth)}\n");
-        }
         var tasksString = sb.ToString();
 
         // Header row
@@ -218,10 +216,7 @@ class Program
 
     private static void LoadTasks()
     {
-        if (!File.Exists(JsonFileName))
-        {
-            return;
-        }
+        if (!File.Exists(JsonFileName)) return;
 
         var tasksJson = File.ReadAllText(JsonFileName);
 
