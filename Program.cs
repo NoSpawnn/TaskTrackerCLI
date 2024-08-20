@@ -103,11 +103,14 @@ class Program
                     case "done":
                         MarkTask(markId, TodoStatus.DONE);
                         break;
+                    case "todo":
+                        MarkTask(markId, TodoStatus.TODO);
+                        break;
                     case "in-progress":
                         MarkTask(markId, TodoStatus.IN_PROGRESS);
                         break;
                     default:
-                        Console.WriteLine("Tasks may be marked as 'done' or 'in-progress'");
+                        Console.WriteLine("Tasks may be marked as 'done', 'in-progress', or 'todo'");
                         break;
                 }
                 break;
