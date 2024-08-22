@@ -2,27 +2,30 @@ namespace TaskTrackerCLI;
 
 public class Todo(int id, string description, DateTime createdAt, DateTime updatedAt, TodoStatus status)
 {
-    public int Id { get; } = id;
     private string _description = description;
+    private TodoStatus _status = status;
+    public int Id { get; } = id;
+
     public string Description
     {
-        get { return _description; }
+        get => _description;
         set
         {
             _description = value;
             UpdatedAt = DateTime.Now;
         }
     }
-    private TodoStatus _status = status;
+
     public TodoStatus Status
     {
-        get { return _status; }
+        get => _status;
         set
         {
             _status = value;
             UpdatedAt = DateTime.Now;
         }
     }
+
     public DateTime CreatedAt { get; } = createdAt;
-    public DateTime UpdatedAt { get; set; } = updatedAt;
+    public DateTime UpdatedAt { get; private set; } = updatedAt;
 }
