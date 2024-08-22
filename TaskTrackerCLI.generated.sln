@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskTrackerCLI", "TaskTrackerCLI.csproj", "{F96B7CE8-298D-46E1-839F-D53B77212813}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskTrackerCLI", "TaskTrackerCLI.csproj", "{62360050-C1B2-4712-8070-30AFD1F5EDFF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F96B7CE8-298D-46E1-839F-D53B77212813}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F96B7CE8-298D-46E1-839F-D53B77212813}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F96B7CE8-298D-46E1-839F-D53B77212813}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F96B7CE8-298D-46E1-839F-D53B77212813}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62360050-C1B2-4712-8070-30AFD1F5EDFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62360050-C1B2-4712-8070-30AFD1F5EDFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62360050-C1B2-4712-8070-30AFD1F5EDFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62360050-C1B2-4712-8070-30AFD1F5EDFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
