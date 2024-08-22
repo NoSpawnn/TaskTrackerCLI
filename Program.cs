@@ -6,7 +6,7 @@ namespace TaskTrackerCLI;
 internal class Program
 {
     private const string JsonFileName = "tasklist.json";
-    private static List<Todo> Todos = [];
+    private static List<Todo> _todos = [];
     private static readonly JsonSerializerOptions JsonOpts = new() { WriteIndented = true };
     private static int _nextId;
 
@@ -117,14 +117,14 @@ internal class Program
 
     private static void AddTask(string description)
     {
-        Todos.Add(new Todo(_nextId, description, DateTime.Now, DateTime.Now, TodoStatus.Todo));
+        _todos.Add(new Todo(_nextId, description, DateTime.Now, DateTime.Now, TodoStatus.Todo));
         _nextId++;
         SaveTasks();
     }
 
     private static void UpdateTask(int id, string description)
     {
-        var toUpdate = Todos.FindIndex(t => t.Id == id);
+        var toUpdate = _todos.FindIndex(t => t.Id == id);
 
         if (toUpdate == -1)
         {
@@ -132,14 +132,14 @@ internal class Program
             return;
         }
 
-        Todos[toUpdate].Description = description;
+        _todos[toUpdate].Description = description;
 
         SaveTasks();
     }
 
     private static void MarkTask(int id, TodoStatus status)
     {
-        var toMark = Todos.FindIndex(t => t.Id == id);
+        var toMark = _todos.FindIndex(t => t.Id == id);
 
         if (toMark == -1)
         {
@@ -147,48 +147,49 @@ internal class Program
             return;
         }
 
-        Todos[toMark].Status = status;
+        _todos[toMark].Status = status;
 
         SaveTasks();
     }
 
     private static void DeleteTask(int id)
     {
-        var toDelete = Todos.FindIndex(t => t.Id == id);
+        var toDelete = _todos.FindIndex(t => t.Id == id);
 
         if (toDelete == -1) return;
 
-        Todos.RemoveAt(toDelete);
+        _todos.RemoveAt(toDelete);
         SaveTasks();
     }
 
     private static void ListTasks()
     {
-        PrintTasks(Todos);
+        PrintTasks(_todos);
     }
 
     private static void ListTasks(TodoStatus status)
     {
-        PrintTasks(Todos.Where(t => t.Status == status));
+        PrintTasks(_todos.Where(t => t.Status == status));
     }
 
     // Prints tasks in a table
     private static void PrintTasks(IEnumerable<Todo> tasks)
     {
-        if (!tasks.Any())
+        var taskList = tasks.ToList();
+        if (taskList.Count == 0)
         {
             Console.WriteLine("There are no tasks!");
             return;
         }
 
-        var idColumnWidth = Todos.MaxBy(t => t.Id)!.Id.ToString().Length + 1;
-        var statusColumnWidth = Todos.Any(t => t.Status == TodoStatus.InProgress) ? 14 : 9;
-        var descColumnWidth = Todos.MaxBy(t => t.Description.Length)!.Description.Length + 3;
+        var idColumnWidth = taskList.MaxBy(t => t.Id)!.Id.ToString().Length + 1;
+        var statusColumnWidth = taskList.Any(t => t.Status == TodoStatus.InProgress) ? 14 : 9;
+        var descColumnWidth = taskList.MaxBy(t => t.Description.Length)!.Description.Length + 3;
         var dateFormat = "dd/MM/yy H:mm";
         var dateColumnWidth = dateFormat.Length;
 
         var sb = new StringBuilder();
-        foreach (var t in tasks)
+        foreach (var t in taskList)
             sb.Append($"{t.Id.ToString().PadRight(Math.Max(idColumnWidth, 5))}" +
                       $"{t.Description.PadRight(Math.Max(descColumnWidth, 14))}" +
                       $"{t.Status.ToString().PadRight(statusColumnWidth)}" +
@@ -205,7 +206,7 @@ internal class Program
 
         // Separator
         Console.WriteLine(new string('-',
-            tasksString.Length / Todos.Count - 1)); // -1 to account for newline character
+            tasksString.Length / taskList.Count - 1)); // -1 to account for newline character
 
         // Tasks
         Console.WriteLine(tasksString);
@@ -214,7 +215,7 @@ internal class Program
     private static void SaveTasks()
     {
         // { WriteIndented = true }
-        var s = JsonSerializer.Serialize(Todos, JsonOpts);
+        var s = JsonSerializer.Serialize(_todos, JsonOpts);
         File.WriteAllText(JsonFileName, s);
     }
 
@@ -225,9 +226,9 @@ internal class Program
         var tasksJson = File.ReadAllText(JsonFileName);
 
         if (!string.IsNullOrEmpty(tasksJson))
-            Todos = JsonSerializer.Deserialize<List<Todo>>(tasksJson)!;
+            _todos = JsonSerializer.Deserialize<List<Todo>>(tasksJson)!;
 
-        _nextId = Todos.Count == 0 ? 1 : Todos.MaxBy(t => t.Id)!.Id + 1;
+        _nextId = _todos.Count == 0 ? 1 : _todos.MaxBy(t => t.Id)!.Id + 1;
     }
 
     private static void PrintUsage()
