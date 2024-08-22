@@ -38,7 +38,11 @@ internal class Program
                     break;
                 }
 
-                if (!int.TryParse(args[1], out var updateId)) Console.WriteLine($"Invalid ID {args[1]}");
+                if (!int.TryParse(args[1], out var updateId))
+                {
+                    Console.WriteLine($"'{args[1]}' is not a valid ID (must be numeric)");
+                    break;
+                }
 
                 UpdateTask(updateId, args[2]);
                 break;
@@ -49,7 +53,11 @@ internal class Program
                     break;
                 }
 
-                if (!int.TryParse(args[1], out var deleteId)) Console.WriteLine($"Invalid ID {args[1]}");
+                if (!int.TryParse(args[1], out var deleteId))
+                {
+                    Console.WriteLine($"'{args[1]}' is not a valid ID (must be numeric)");
+                    break;
+                }
 
                 DeleteTask(deleteId);
                 break;
